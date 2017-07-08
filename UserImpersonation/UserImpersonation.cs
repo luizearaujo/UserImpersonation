@@ -8,6 +8,9 @@ using System.Security.Principal;
 /// </summary>
 public class UserImpersonation : IDisposable
 {
+
+    public bool Connected { get; set; }
+
     /// <summary>
     /// Logon method (check athetification) from advapi32.dll
     /// </summary>
@@ -54,13 +57,15 @@ public class UserImpersonation : IDisposable
         _userName = userName;
         _domain = domain;
         _passWord = passWord;
+
+        this.Connected = this.Connect();
     }
 
     /// <summary>
     /// Valiate the user inforamtion
     /// </summary>
     /// <returns></returns>
-    public bool ImpersonateValidUser()
+    private bool Connect()
     {
         bool returnValue = LogonUser(_userName, _domain, _passWord,
                 LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT,

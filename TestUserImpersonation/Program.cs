@@ -13,7 +13,7 @@ namespace TestUserImpersonation
 
             using (UserImpersonation user = new UserImpersonation(login, domain, password))
             {
-                if (user.ImpersonateValidUser())
+                if (user.Connected)
                 {
                     File.WriteAllText("test2.txt", "Voici mon texte");
                     Console.WriteLine("File writed");
